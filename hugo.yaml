@@ -110,9 +110,9 @@ menus:
 params:
   author:
     name: 'Tamilarasu Saravanakangeyan'
-    title: 'M.Tech Data Science | AI & Cloud Technical Architect'
+    title: 'M.Tech Data Science | TOGAF®, Azure & Google Cloud Certified Architect'
     email: 'tamilsmtp@gmail.com'
-    bio: 'Enterprise Cloud Architect | TOGAF®, Azure & Google Cloud Certified | AI & Digital Transformation Leader, Specializing in IAM frameworks and enterprise integration, transforming business challenges into scalable, intelligent solutions while mentoring technical teams and driving innovation.'
+    bio: 'Enterprise Architect Driving Digital Transformation, Delivering secure cloud architectures, scalable AI platforms that solve enterprise challenges and robust IAM solutions. Building technical capabilities through strategic mentorship and innovation.'
     image: '/images/profile.jpg'
   
   social:
