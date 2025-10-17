@@ -1,0 +1,212 @@
+baseURL: 'https://tamilarasusaravanakangeyan.github.io'
+languageCode: 'en-us'
+title: 'Tamilarasu Saravanakangeyan - Portfolio & Blog'
+
+# Hierarchical content organization
+defaultContentLanguage: 'en'
+defaultContentLanguageInSubdir: false
+
+# Permalinks for hierarchical structure
+permalinks:
+  blog: '/blog/:section/:year/:month/:slug/'
+  projects: '/projects/:section/:slug/'
+
+# Taxonomies for hierarchical content organization
+taxonomies:
+  category: 'categories'
+  tag: 'tags'
+  series: 'series'
+  technology: 'technologies'
+
+# Menu configuration for hierarchical navigation
+menus:
+  main:
+    - name: 'Home'
+      url: '/'
+      weight: 10
+      identifier: 'home'
+    
+    - name: 'Blog'
+      url: '/blog/'
+      weight: 20
+      identifier: 'blog'
+    
+    - name: 'All Posts'
+      url: '/blog/'
+      weight: 21
+      parent: 'blog'
+      identifier: 'blog-all'
+    
+    - name: 'Categories'
+      url: '/categories/'
+      weight: 22
+      parent: 'blog'
+      identifier: 'blog-categories'
+    
+    - name: 'Web Development'
+      url: '/categories/web-development/'
+      weight: 221
+      parent: 'blog-categories'
+      identifier: 'blog-webdev'
+    
+    - name: 'DevOps'
+      url: '/categories/devops/'
+      weight: 222
+      parent: 'blog-categories'
+      identifier: 'blog-devops'
+    
+    - name: 'Data Science'
+      url: '/categories/data-science/'
+      weight: 223
+      parent: 'blog-categories'
+      identifier: 'blog-datascience'
+    
+    - name: 'Tags Cloud'
+      url: '/tags/'
+      weight: 23
+      parent: 'blog'
+      identifier: 'blog-tags'
+    
+    - name: 'Archive'
+      url: '/archive/'
+      weight: 24
+      parent: 'blog'
+      identifier: 'blog-archive'
+    
+    - name: 'Projects'
+      url: '/projects/'
+      weight: 30
+      identifier: 'projects'
+    
+    - name: 'Web Apps'
+      url: '/projects/web-apps/'
+      weight: 31
+      parent: 'projects'
+      identifier: 'projects-webapps'
+    
+    - name: 'Open Source'
+      url: '/projects/open-source/'
+      weight: 32
+      parent: 'projects'
+      identifier: 'projects-opensource'
+    
+    - name: 'Experiments'
+      url: '/projects/experiments/'
+      weight: 33
+      parent: 'projects'
+      identifier: 'projects-experiments'
+    
+    - name: 'About'
+      url: '/about/'
+      weight: 40
+      identifier: 'about'
+    
+    - name: 'Contact'
+      url: '/contact/'
+      weight: 50
+      identifier: 'contact'
+
+# Site parameters for customization
+params:
+  author:
+    name: 'Tamilarasu Saravanakangeyan'
+    title: 'Full Stack Developer & Tech Enthusiast'
+    email: 'your.email@example.com'
+    bio: 'Passionate about creating innovative web solutions and sharing knowledge through technical writing.'
+    image: '/images/profile.jpg'
+  
+  social:
+    github: 'https://github.com/tamilarasusaravanakangeyan'
+    linkedin: 'https://linkedin.com/in/your-profile'
+    twitter: 'https://twitter.com/your-handle'
+    email: 'mailto:your.email@example.com'
+  
+  # Theme and navigation settings
+  theme:
+    defaultMode: 'light'
+    enableToggle: true
+  
+  navigation:
+    enableBreadcrumbs: true
+    enableHierarchical: true
+    sidebarFixed: true
+    mobileBreakpoint: '768px'
+  
+  # Content settings
+  content:
+    enableSeries: true
+    enableRelatedPosts: true
+    postsPerPage: 10
+    enableCodeHighlighting: true
+    enableMathJax: false
+    enableTableOfContents: true
+
+# Markup configuration for enhanced content
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: 'github'
+    lineNos: true
+    lineNumbersInTable: true
+    tabWidth: 2
+  
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+    ordered: false
+
+# Related content configuration
+related:
+  includeNewer: true
+  indices:
+    - name: 'keywords'
+      weight: 100
+    - name: 'tags'
+      weight: 80
+    - name: 'categories'
+      weight: 60
+    - name: 'series'
+      weight: 90
+  threshold: 80
+  toLower: true
+
+# Output formats
+outputs:
+  home: ['HTML', 'RSS', 'JSON']
+  section: ['HTML', 'RSS']
+  taxonomy: ['HTML', 'RSS']
+  term: ['HTML', 'RSS']
+
+# Build configuration
+publishDir: 'public'
+writeStats: true
+
+# Security configuration
+security:
+  exec:
+    allow: ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$']
+  funcs:
+    getenv: ['^HUGO_']
+  http:
+    methods: ['(?i)GET|POST']
+    urls: ['.*']
+
+# Module configuration (if using Hugo modules)
+module:
+  mounts:
+    - source: 'static'
+      target: 'static'
+    - source: 'layouts'
+      target: 'layouts'
+    - source: 'content'
+      target: 'content'
+    - source: 'data'
+      target: 'data'
+    - source: 'assets'
+      target: 'assets'
+    - source: 'i18n'
+      target: 'i18n'
+    - source: 'archetypes'
+      target: 'archetypes'

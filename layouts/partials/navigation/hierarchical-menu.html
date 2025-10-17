@@ -1,0 +1,133 @@
+{{/* Hierarchical Navigation Menu with collapsible sections */}}
+<nav class="sidebar-nav" id="sidebar-nav">
+  <ul class="nav-menu" role="menubar">
+    {{- $currentPage := . -}}
+    {{- $currentSection := .Section -}}
+    {{- $currentURL := .RelPermalink -}}
+    
+    {{- range .Site.Menus.main -}}
+      {{- if not .Parent -}}
+        {{- $hasChildren := false -}}
+        {{- range $.Site.Menus.main -}}
+          {{- if eq .Parent .Identifier -}}
+            {{- $hasChildren = true -}}
+          {{- end -}}
+        {{- end -}}
+        
+        {{- $isActive := false -}}
+        {{- $isInActiveTree := false -}}
+        
+        {{/* Check if current page matches this menu item */}}
+        {{- if eq .URL $currentURL -}}
+          {{- $isActive = true -}}
+        {{- end -}}
+        
+        {{/* Check if current page is in this menu tree */}}
+        {{- if hasPrefix $currentURL .URL -}}
+          {{- $isInActiveTree = true -}}
+        {{- end -}}
+        
+        {{/* Check if any child is active */}}
+        {{- $currentIdentifier := .Identifier -}}
+        {{- range $.Site.Menus.main -}}
+          {{- if eq .Parent $currentIdentifier -}}
+            {{- if eq .URL $currentURL -}}
+              {{- $isInActiveTree = true -}}
+            {{- end -}}
+            {{- if hasPrefix $currentURL .URL -}}
+              {{- $isInActiveTree = true -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+        
+        <li class="nav-item{{ if $hasChildren }} has-children{{ end }}{{ if $isActive }} active{{ end }}{{ if $isInActiveTree }} in-active-tree{{ end }}" 
+            role="none">
+          <a href="{{ .URL }}" 
+             class="nav-link{{ if $isActive }} active{{ end }}"
+             role="menuitem"
+             aria-expanded="{{ if and $hasChildren $isInActiveTree }}true{{ else }}false{{ end }}"
+             {{ if $hasChildren }}aria-haspopup="true"{{ end }}>
+            {{- if .Pre -}}
+              <span class="nav-icon">{{ .Pre | safeHTML }}</span>
+            {{- end -}}
+            <span class="nav-text">{{ .Name }}</span>
+            {{- if $hasChildren -}}
+              <span class="nav-toggle" aria-hidden="true">
+                <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12">
+                  <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            {{- end -}}
+          </a>
+          
+          {{- if $hasChildren -}}
+            <ul class="nav-submenu{{ if $isInActiveTree }} expanded{{ end }}" role="menu">
+              {{- range $.Site.Menus.main -}}
+                {{- if eq .Parent $currentIdentifier -}}
+                  {{- $subCurrentIdentifier := .Identifier -}}
+                  {{- $subHasChildren := false -}}
+                  {{- range $.Site.Menus.main -}}
+                    {{- if eq .Parent $subCurrentIdentifier -}}
+                      {{- $subHasChildren = true -}}
+                    {{- end -}}
+                  {{- end -}}
+                  
+                  {{- $subIsActive := false -}}
+                  {{- $subIsInActiveTree := false -}}
+                  
+                  {{- if eq .URL $currentURL -}}
+                    {{- $subIsActive = true -}}
+                  {{- end -}}
+                  
+                  {{- if hasPrefix $currentURL .URL -}}
+                    {{- $subIsInActiveTree = true -}}
+                  {{- end -}}
+                  
+                  <li class="nav-subitem{{ if $subHasChildren }} has-children{{ end }}{{ if $subIsActive }} active{{ end }}" 
+                      role="none">
+                    <a href="{{ .URL }}" 
+                       class="nav-sublink{{ if $subIsActive }} active{{ end }}"
+                       role="menuitem"
+                       {{ if $subHasChildren }}aria-haspopup="true" aria-expanded="{{ if $subIsInActiveTree }}true{{ else }}false{{ end }}"{{ end }}>
+                      {{- if .Pre -}}
+                        <span class="nav-icon">{{ .Pre | safeHTML }}</span>
+                      {{- end -}}
+                      <span class="nav-text">{{ .Name }}</span>
+                      {{- if $subHasChildren -}}
+                        <span class="nav-toggle" aria-hidden="true">
+                          <svg class="nav-chevron" width="10" height="10" viewBox="0 0 12 12">
+                            <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+                      {{- end -}}
+                    </a>
+                    
+                    {{- if $subHasChildren -}}
+                      <ul class="nav-subsubmenu{{ if $subIsInActiveTree }} expanded{{ end }}" role="menu">
+                        {{- range $.Site.Menus.main -}}
+                          {{- if eq .Parent $subCurrentIdentifier -}}
+                            {{- $subsubIsActive := eq .URL $currentURL -}}
+                            <li class="nav-subsubitem{{ if $subsubIsActive }} active{{ end }}" role="none">
+                              <a href="{{ .URL }}" 
+                                 class="nav-subsublink{{ if $subsubIsActive }} active{{ end }}"
+                                 role="menuitem">
+                                {{- if .Pre -}}
+                                  <span class="nav-icon">{{ .Pre | safeHTML }}</span>
+                                {{- end -}}
+                                <span class="nav-text">{{ .Name }}</span>
+                              </a>
+                            </li>
+                          {{- end -}}
+                        {{- end -}}
+                      </ul>
+                    {{- end -}}
+                  </li>
+                {{- end -}}
+              {{- end -}}
+            </ul>
+          {{- end -}}
+        </li>
+      {{- end -}}
+    {{- end -}}
+  </ul>
+</nav>

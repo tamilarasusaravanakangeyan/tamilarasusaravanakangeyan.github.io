@@ -1,0 +1,63 @@
+{{/* Footer Scripts Partial */}}
+{{/* This partial includes additional JavaScript files and scripts that should be loaded at the end of the page */}}
+
+{{/* Custom JavaScript files */}}
+{{ range .Site.Params.customJS }}
+  <script src="{{ . | relURL }}"></script>
+{{ end }}
+
+{{/* Page-specific scripts */}}
+{{ if .Params.scripts }}
+  {{ range .Params.scripts }}
+    <script src="{{ . | relURL }}"></script>
+  {{ end }}
+{{ end }}
+
+{{/* Inline scripts for specific page types */}}
+{{ if eq .Type "blog" }}
+  {{/* Blog-specific scripts */}}
+  <script>
+    // Code syntax highlighting initialization
+    if (typeof Prism !== 'undefined') {
+      Prism.highlightAll();
+    }
+  </script>
+{{ end }}
+
+{{ if eq .Type "projects" }}
+  {{/* Project-specific scripts */}}
+  <script>
+    // Portfolio filtering and animation scripts
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize project filtering if present
+      const filterButtons = document.querySelectorAll('[data-filter]');
+      if (filterButtons.length > 0) {
+        // Add filtering logic here
+        console.log('Project filtering initialized');
+      }
+    });
+  </script>
+{{ end }}
+
+{{/* Contact form scripts */}}
+{{ if .Params.contactForm }}
+  <script>
+    // Contact form validation and submission
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          // Add form validation logic here
+          console.log('Contact form submitted');
+        });
+      }
+    });
+  </script>
+{{ end }}
+
+{{/* Development mode scripts */}}
+{{ if hugo.IsServer }}
+  <script>
+    console.log('Hugo development server active');
+  </script>
+{{ end }}

@@ -1,0 +1,55 @@
+{{/* 
+  Additional head content - can be used for custom CSS, JavaScript, or meta tags
+  This partial is included in baseof.html and can be customized per page or site-wide
+*/}}
+
+{{/* Page-specific CSS */}}
+{{ with .Params.custom_css }}
+  {{ range . }}
+    <link rel="stylesheet" href="{{ . | relURL }}">
+  {{ end }}
+{{ end }}
+
+{{/* Page-specific JavaScript in head */}}
+{{ with .Params.head_js }}
+  {{ range . }}
+    <script src="{{ . | relURL }}"></script>
+  {{ end }}
+{{ end }}
+
+{{/* Custom meta tags */}}
+{{ with .Params.custom_meta }}
+  {{ range . }}
+    <meta name="{{ .name }}" content="{{ .content }}">
+  {{ end }}
+{{ end }}
+
+{{/* Google Analytics or other analytics */}}
+{{ with site.Params.google_analytics }}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ . }}');
+  </script>
+{{ end }}
+
+{{/* Additional structured data */}}
+{{ if .IsPage }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ .Title | jsonify }},
+    "description": {{ with .Description }}{{ . | jsonify }}{{ else }}{{ .Summary | plainify | jsonify }}{{ end }},
+    "author": {
+      "@type": "Person",
+      "name": {{ site.Params.author.name | default "Author" | jsonify }}
+    },
+    "datePublished": {{ .Date.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+    "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+    "url": {{ .Permalink | jsonify }}
+  }
+  </script>
+{{ end }}

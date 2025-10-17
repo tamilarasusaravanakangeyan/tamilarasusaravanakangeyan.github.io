@@ -1,0 +1,244 @@
+{{ define "main" }}
+<article class="single-post">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}" class="post-date">
+        {{ .Date.Format "January 2, 2006" }}
+      </time>
+      
+      {{- if .Params.categories -}}
+        <div class="post-categories">
+          {{- range .Params.categories -}}
+            {{- $categorySlug := . | urlize -}}
+            <a href="/categories/{{ $categorySlug }}/" class="post-category">{{ . }}</a>
+          {{- end -}}
+        </div>
+      {{- end -}}
+      
+      {{- if .Params.series -}}
+        <div class="post-series">
+          {{- range .Params.series -}}
+            Series: <a href="/series/{{ . | urlize }}/">{{ . }}</a>
+            {{- if $.Params.part -}}
+              - Part {{ $.Params.part }}
+            {{- end -}}
+          {{- end -}}
+        </div>
+      {{- end -}}
+    </div>
+    
+    <h1 class="post-title">{{ .Title }}</h1>
+    
+    {{- with .Description -}}
+      <p class="post-description">{{ . }}</p>
+    {{- end -}}
+    
+    {{- if .Params.featured_image -}}
+      <div class="post-featured-image">
+        <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" loading="lazy">
+      </div>
+    {{- end -}}
+    
+    <div class="post-stats">
+      <span class="reading-time">{{ .ReadingTime }} min read</span>
+      {{- if .WordCount -}}
+        <span class="word-count">{{ .WordCount }} words</span>
+      {{- end -}}
+      
+      {{- if .Params.tags -}}
+        <div class="post-tags">
+          {{- range .Params.tags -}}
+            {{- $tagSlug := . | urlize -}}
+            <a href="/tags/{{ $tagSlug }}/" class="post-tag">#{{ . }}</a>
+          {{- end -}}
+        </div>
+      {{- end -}}
+    </div>
+  </header>
+  
+  {{/* Table of Contents */}}
+  {{- if and .Site.Params.content.enableTableOfContents .TableOfContents -}}
+    <div class="table-of-contents">
+      <h3 class="toc-title">Table of Contents</h3>
+      {{ .TableOfContents }}
+    </div>
+  {{- end -}}
+  
+  {{/* Post Content */}}
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+  
+  {{/* Post Footer */}}
+  <footer class="post-footer">
+    {{/* Author Info */}}
+    <div class="post-author">
+      {{- with .Site.Params.author.image -}}
+        <img src="{{ . }}" alt="{{ $.Site.Params.author.name }}" class="author-avatar">
+      {{- end -}}
+      <div class="author-info">
+        <h4 class="author-name">{{ .Site.Params.author.name }}</h4>
+        <p class="author-bio">{{ .Site.Params.author.bio }}</p>
+      </div>
+    </div>
+    
+    {{/* Share Buttons */}}
+    <div class="post-share">
+      <h4 class="share-title">Share this post</h4>
+      <div class="share-buttons">
+        <a href="https://twitter.com/intent/tweet?text={{ .Title }}&url={{ .Permalink }}" 
+           class="share-button twitter" 
+           target="_blank" 
+           rel="noopener"
+           aria-label="Share on Twitter">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+          </svg>
+          Twitter
+        </a>
+        
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}" 
+           class="share-button linkedin" 
+           target="_blank" 
+           rel="noopener"
+           aria-label="Share on LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          LinkedIn
+        </a>
+        
+        <button class="share-button copy-link" onclick="copyToClipboard('{{ .Permalink }}')" aria-label="Copy link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+          </svg>
+          Copy Link
+        </button>
+      </div>
+    </div>
+  </footer>
+</article>
+
+{{/* Series Navigation */}}
+{{- if .Params.series -}}
+  {{- range .Params.series -}}
+    {{- $seriesPages := where $.Site.RegularPages ".Params.series" "intersect" (slice .) -}}
+    {{- if gt (len $seriesPages) 1 -}}
+      <nav class="series-navigation" aria-label="Series navigation">
+        <h3 class="series-nav-title">{{ . }} Series</h3>
+        <div class="series-nav-grid">
+          {{- range $seriesPages.ByParam "part" -}}
+            {{- $isCurrent := eq .RelPermalink $.RelPermalink -}}
+            <div class="series-nav-item{{ if $isCurrent }} current{{ end }}">
+              {{- if $isCurrent -}}
+                <span class="series-nav-current">
+                  <strong>Part {{ .Params.part | default "1" }}</strong>
+                  {{ .Title }}
+                </span>
+              {{- else -}}
+                <a href="{{ .RelPermalink }}" class="series-nav-link">
+                  <strong>Part {{ .Params.part | default "1" }}</strong>
+                  {{ .Title }}
+                </a>
+              {{- end -}}
+            </div>
+          {{- end -}}
+        </div>
+      </nav>
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Related Posts */}}
+{{- if .Site.Params.content.enableRelatedPosts -}}
+  {{- $related := .Site.RegularPages.Related . | first 3 -}}
+  {{- if $related -}}
+    <section class="related-posts" aria-label="Related posts">
+      <h3 class="related-posts-title">Related Posts</h3>
+      <div class="related-posts-grid">
+        {{- range $related -}}
+          <article class="related-post-card">
+            {{- if .Params.featured_image -}}
+              <div class="related-post-image">
+                <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" loading="lazy">
+              </div>
+            {{- end -}}
+            
+            <div class="related-post-content">
+              <div class="related-post-meta">
+                <time datetime="{{ .Date.Format "2006-01-02" }}" class="related-post-date">
+                  {{ .Date.Format "Jan 2, 2006" }}
+                </time>
+                {{- if .Params.categories -}}
+                  <span class="related-post-category">{{ index .Params.categories 0 }}</span>
+                {{- end -}}
+              </div>
+              
+              <h4 class="related-post-title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h4>
+              
+              <p class="related-post-excerpt">
+                {{ .Summary | plainify | truncate 100 }}
+              </p>
+            </div>
+          </article>
+        {{- end -}}
+      </div>
+    </section>
+  {{- end -}}
+{{- end -}}
+
+{{/* Previous/Next Navigation */}}
+<nav class="post-navigation" aria-label="Post navigation">
+  <div class="post-nav-links">
+    {{- with .PrevInSection -}}
+      <a href="{{ .RelPermalink }}" class="post-nav-prev" rel="prev">
+        <div class="post-nav-label">← Previous Post</div>
+        <div class="post-nav-title">{{ .Title }}</div>
+      </a>
+    {{- end -}}
+    
+    {{- with .NextInSection -}}
+      <a href="{{ .RelPermalink }}" class="post-nav-next" rel="next">
+        <div class="post-nav-label">Next Post →</div>
+        <div class="post-nav-title">{{ .Title }}</div>
+      </a>
+    {{- end -}}
+  </div>
+</nav>
+
+{{/* Structured Data for Article */}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ .Title }}",
+  "description": "{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Site.Params.author.name }}",
+    "url": "{{ .Site.BaseURL }}"
+  },
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+  "publisher": {
+    "@type": "Person",
+    "name": "{{ .Site.Params.author.name }}",
+    "url": "{{ .Site.BaseURL }}"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  },
+  "url": "{{ .Permalink }}"
+  {{- if .Params.featured_image -}}
+  ,"image": "{{ absURL .Params.featured_image }}"
+  {{- end -}}
+  {{- if .Params.categories -}}
+  ,"keywords": [{{ range $i, $category := .Params.categories }}{{ if $i }}, {{ end }}"{{ $category }}"{{ end }}]
+  {{- end -}}
+}
+</script>
+{{ end }}

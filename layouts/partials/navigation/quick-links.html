@@ -1,0 +1,80 @@
+{{/* Quick Links Component for contextual navigation */}}
+{{- $currentPage := . -}}
+{{- $currentSection := .Section -}}
+
+<div class="quick-links">
+  <h4 class="quick-links-title">Quick Links</h4>
+  
+  {{/* Section-specific quick links */}}
+  {{- if eq $currentSection "blog" -}}
+    <ul class="quick-links-list">
+      <li><a href="/blog/" class="quick-link">All Posts</a></li>
+      <li><a href="/categories/" class="quick-link">Categories</a></li>
+      <li><a href="/tags/" class="quick-link">Tags</a></li>
+      <li><a href="/archive/" class="quick-link">Archive</a></li>
+    </ul>
+    
+    {{/* Related categories for current post */}}
+    {{- if .Params.categories -}}
+      <h5 class="quick-links-subtitle">Related Categories</h5>
+      <ul class="quick-links-list">
+        {{- range .Params.categories -}}
+          {{- $categorySlug := . | urlize -}}
+          <li><a href="/categories/{{ $categorySlug }}/" class="quick-link">{{ . }}</a></li>
+        {{- end -}}
+      </ul>
+    {{- end -}}
+    
+  {{- else if eq $currentSection "projects" -}}
+    <ul class="quick-links-list">
+      <li><a href="/projects/" class="quick-link">All Projects</a></li>
+      <li><a href="/projects/web-apps/" class="quick-link">Web Apps</a></li>
+      <li><a href="/projects/open-source/" class="quick-link">Open Source</a></li>
+      <li><a href="/projects/experiments/" class="quick-link">Experiments</a></li>
+    </ul>
+    
+  {{- else -}}
+    {{/* Default quick links for other sections */}}
+    <ul class="quick-links-list">
+      <li><a href="/blog/" class="quick-link">Latest Posts</a></li>
+      <li><a href="/projects/" class="quick-link">Recent Projects</a></li>
+      <li><a href="/about/" class="quick-link">About Me</a></li>
+      <li><a href="/contact/" class="quick-link">Contact</a></li>
+    </ul>
+  {{- end -}}
+  
+  {{/* Related posts based on current page */}}
+  {{- if and .IsPage (gt (len .Site.RegularPages) 1) -}}
+    {{- $related := .Site.RegularPages.Related . | first 3 -}}
+    {{- if $related -}}
+      <h5 class="quick-links-subtitle">Related Content</h5>
+      <ul class="quick-links-list">
+        {{- range $related -}}
+          <li><a href="{{ .RelPermalink }}" class="quick-link" title="{{ .Summary | plainify | truncate 100 }}">{{ .Title }}</a></li>
+        {{- end -}}
+      </ul>
+    {{- end -}}
+  {{- end -}}
+  
+  {{/* Series navigation if applicable */}}
+  {{- if .Params.series -}}
+    {{- range .Params.series -}}
+      {{- $seriesPages := where $.Site.RegularPages ".Params.series" "intersect" (slice .) -}}
+      {{- if gt (len $seriesPages) 1 -}}
+        <h5 class="quick-links-subtitle">{{ . }} Series</h5>
+        <ul class="quick-links-list series-nav">
+          {{- range $seriesPages.ByParam "part" -}}
+            {{- $isCurrent := eq .RelPermalink $currentPage.RelPermalink -}}
+            <li class="series-item{{ if $isCurrent }} current{{ end }}">
+              {{- if $isCurrent -}}
+                <span class="series-current">Part {{ .Params.part | default "1" }}: {{ .Title }}</span>
+              {{- else -}}
+                <a href="{{ .RelPermalink }}" class="quick-link series-link">Part {{ .Params.part | default "1" }}: {{ .Title }}</a>
+              {{- end -}}
+            </li>
+          {{- end -}}
+        </ul>
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+</div>

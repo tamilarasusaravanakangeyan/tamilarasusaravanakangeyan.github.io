@@ -1,0 +1,72 @@
+{{ define "main" }}
+<div class="list-page">
+  <header class="list-header">
+    <h1 class="list-title">{{ .Title }}</h1>
+    
+    {{ with .Description }}
+      <p class="list-description">{{ . }}</p>
+    {{ end }}
+    
+    {{ if .Content }}
+      <div class="list-content">
+        {{ .Content }}
+      </div>
+    {{ end }}
+  </header>
+  
+  <div class="content-grid">
+    {{ range .Pages }}
+      <article class="content-card">
+        <div class="content-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}" class="content-date">
+            {{ .Date.Format "Jan 2, 2006" }}
+          </time>
+        </div>
+        
+        <h2 class="content-title">
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h2>
+        
+        {{ if .Description }}
+          <p class="content-description">{{ .Description }}</p>
+        {{ else if .Summary }}
+          <p class="content-excerpt">{{ .Summary | plainify | truncate 150 }}</p>
+        {{ end }}
+        
+        {{ if .Params.tags }}
+          <div class="content-tags">
+            {{ range first 3 .Params.tags }}
+              <span class="content-tag">{{ . }}</span>
+            {{ end }}
+          </div>
+        {{ end }}
+        
+        <a href="{{ .RelPermalink }}" class="content-link">
+          Read More →
+        </a>
+      </article>
+    {{ end }}
+  </div>
+  
+  {{ if .Sections }}
+    <aside class="subsections">
+      <h3 class="subsections-title">Explore Subsections</h3>
+      <div class="subsections-grid">
+        {{ range .Sections }}
+          <div class="subsection-card">
+            <h4 class="subsection-title">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h4>
+            {{ with .Description }}
+              <p class="subsection-description">{{ . }}</p>
+            {{ end }}
+            <div class="subsection-stats">
+              {{ len .Pages }} {{ if eq (len .Pages) 1 }}item{{ else }}items{{ end }}
+            </div>
+          </div>
+        {{ end }}
+      </div>
+    </aside>
+  {{ end }}
+</div>
+{{ end }}
