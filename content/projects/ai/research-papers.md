@@ -1,0 +1,26 @@
+---
+title: "Curated AI Research Papers"
+description: "A comprehensive collection of the most influential AI research papers that shaped modern artificial intelligence"
+date: 2024-01-01
+categories: ["AI", "Research", "Machine Learning"]
+tags: ["research-papers", "artificial-intelligence", "transformers", "gpt", "rag", "distillation", "quantization", "agents"]
+series: ["AI Research"]
+weight: 1
+---
+
+This collection features the most influential research papers that have fundamentally shaped the field of artificial intelligence and machine learning. Each paper represents a significant breakthrough or paradigm shift in AI development.
+
+## Papers Overview
+
+| #      | Year     | Paper Title                                                                                    | Authors / Organization                                   | Key Contribution / Concept                                                                                                    | Link                                                                      |
+| ------ | -------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| **1**  | **2017** | *Attention Is All You Need*                                                                    | Vaswani et al., Google Brain & University of Toronto     | Introduced the **Transformer architecture** with self-attention, enabling massive parallelism and long-context understanding. | [🔗 arXiv:1706.03762](https://arxiv.org/abs/1706.03762)                   |
+| **2**  | **2020** | *Language Models are Few-Shot Learners (GPT-3)*                                                | Brown et al., OpenAI                                     | Demonstrated **scaling laws** and in-context learning; shifted from fine-tuning to **prompt-based generalization**.           | [🔗 arXiv:2005.14165](https://arxiv.org/abs/2005.14165)                   |
+| **3**  | **2020** | *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (RAG)*                       | Lewis et al., Facebook AI Research                       | Combined **retrieval and generation**, letting LLMs access external, up-to-date knowledge dynamically.                        | [🔗 arXiv:2005.11401](https://arxiv.org/abs/2005.11401)                   |
+| **4**  | **2019** | *DistilBERT: A Distilled Version of BERT*                                                      | Sanh et al., Hugging Face                                | Pioneered **knowledge distillation** to shrink models while maintaining ~97% of BERT’s accuracy.                              | [🔗 arXiv:1910.01108](https://arxiv.org/abs/1910.01108)                   |
+| **5**  | **2021** | *LoRA: Low-Rank Adaptation of Large Language Models*                                           | Hu et al., Microsoft Research                            | Introduced **parameter-efficient fine-tuning** via low-rank adapters, enabling customization on modest hardware.              | [🔗 arXiv:2106.09685](https://arxiv.org/abs/2106.09685)                   |
+| **6**  | **2021** | *Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity* | Fedus, Zoph & Shazeer, Google Research                   | Proposed **Mixture-of-Experts (MoE)** architecture for compute-efficient trillion-parameter scaling.                          | [🔗 arXiv:2101.03961](https://arxiv.org/abs/2101.03961)                   |
+| **7**  | **2022** | *Training Language Models to Follow Instructions with Human Feedback (InstructGPT)*            | Ouyang et al., OpenAI                                    | Introduced **RLHF (Reinforcement Learning from Human Feedback)** for safer, user-aligned responses.                           | [🔗 arXiv:2203.02155](https://arxiv.org/abs/2203.02155)                   |
+| **8**  | **2022** | *LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*                            | Dettmers et al., Univ. of Washington / Hugging Face      | Developed **quantization** technique for efficient inference without major accuracy loss.                                     | [🔗 arXiv:2208.07339](https://arxiv.org/abs/2208.07339)                   |
+| **9**  | **2023** | *A Survey on Large Language Model-based Agents*                                                | Wu et al., Tsinghua University / Microsoft Research Asia | Summarized architectures and behaviors of **LLM-based autonomous agents** with tool use and planning.                         | [🔗 arXiv:2309.07864](https://arxiv.org/abs/2309.07864)                   |
+| **10** | **2024** | *Model Context Protocol (MCP)*                                                                 | Anthropic                                                | Defined a **standard protocol** for integrating LLMs with external tools and APIs through unified schemas.                    | [🔗 Anthropic MCP](https://www.anthropic.com/news/model-context-protocol) |
