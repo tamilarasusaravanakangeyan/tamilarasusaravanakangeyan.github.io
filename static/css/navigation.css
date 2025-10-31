@@ -63,10 +63,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   margin-left: auto;
-  transition: transform var(--transition-fast);
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  transition: transform var(--transition-fast), background-color var(--transition-fast);
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.nav-toggle:hover {
+  background-color: var(--color-bg-tertiary);
 }
 
 .nav-item.has-children .nav-toggle {
@@ -90,13 +99,23 @@
   padding-left: var(--space-4);
   max-height: 0;
   overflow: hidden;
-  transition: max-height var(--transition-normal), opacity var(--transition-fast);
+  transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out;
   opacity: 0;
 }
 
 .nav-submenu.expanded {
-  max-height: 500px;
+  max-height: 800px; /* Increased for more items */
   opacity: 1;
+}
+
+/* Add hover effects for better UX */
+.nav-item.has-children > .nav-link:hover .nav-toggle {
+  color: var(--color-primary);
+}
+
+.nav-item.has-children.in-active-tree > .nav-link .nav-toggle {
+  transform: rotate(180deg);
+  color: var(--color-primary);
 }
 
 .nav-subitem {

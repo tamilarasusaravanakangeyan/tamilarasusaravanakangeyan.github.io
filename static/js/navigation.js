@@ -37,19 +37,31 @@ class NavigationManager {
       const toggle = item.querySelector('.nav-toggle');
       const submenu = item.querySelector('.nav-submenu');
       
-      if (toggle && submenu) {
-        toggle.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          this.toggleSubmenu(item, submenu, link);
-        });
-        
-        // Allow clicking on the main link to navigate while preventing toggle
+      if (link && submenu) {
+        // Add click handler to the entire link
         link.addEventListener('click', (e) => {
-          if (e.target === toggle || toggle.contains(e.target)) {
+          // If clicking on toggle area, prevent navigation and toggle menu
+          if (toggle && (e.target === toggle || toggle.contains(e.target))) {
             e.preventDefault();
+            e.stopPropagation();
+            this.toggleSubmenu(item, submenu, link);
+          }
+          // If has children but clicking on main text area, also toggle (modern UX)
+          else if (toggle) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.toggleSubmenu(item, submenu, link);
           }
         });
+        
+        // Add separate toggle handler for explicit toggle clicks
+        if (toggle) {
+          toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.toggleSubmenu(item, submenu, link);
+          });
+        }
       }
     });
   }
@@ -60,6 +72,8 @@ class NavigationManager {
   toggleSubmenu(item, submenu, link) {
     const isExpanded = submenu.classList.contains('expanded');
     const ariaExpanded = !isExpanded;
+    
+
     
     // Close all other submenus at the same level
     const siblings = item.parentElement.children;
@@ -84,6 +98,8 @@ class NavigationManager {
     } else {
       item.classList.remove('in-active-tree');
     }
+    
+
   }
   
   /**
