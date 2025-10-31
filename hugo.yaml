@@ -96,6 +96,12 @@ menus:
       parent: 'projects'
       identifier: 'projects-experiments'
     
+    - name: 'AI & Research'
+      url: '/projects/ai/'
+      weight: 34
+      parent: 'projects'
+      identifier: 'projects-ai'
+    
     - name: 'About'
       url: '/about/'
       weight: 40
