@@ -1,0 +1,12 @@
+name = ""
+license = "MIT"
+licenselink = "https://github.com/tamilarasusaravanakangeyan/hugo-profile/blob/master/LICENSE"
+description = "A high performance and mobile first hugo template for personal portfolio and blog."
+homepage = "https://github.com/tamilarasusaravanakangeyan/hugo-profile"
+demosite = "https://hugo-profile.netlify.app"
+tags = ["Responsive","Blog", "Portfolio", "Personal"]
+min_version = "0.68.0"
+
+[author]
+  name = "tamilarasusaravanakangeyan"
+  homepage = "https://www.linkedin.com/in/tamilarasusaravanakangeyan/"
