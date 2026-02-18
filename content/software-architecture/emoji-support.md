@@ -8,6 +8,10 @@ tags:
   - Emoji support
   - Sample
   - example
+categories:
+  - Software Architecture
+aliases:
+  - /blogs/emoji-support/
 image: /images/post.jpg
 description: ""
 toc: 

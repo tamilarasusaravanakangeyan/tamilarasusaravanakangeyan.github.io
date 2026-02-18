@@ -8,6 +8,10 @@ tags:
   - Markdown syntax
   - Sample
   - example
+categories:
+  - Software Architecture
+aliases:
+  - /blogs/markdown-syntax/
 image: /images/post.jpg
 description: ""
 toc:

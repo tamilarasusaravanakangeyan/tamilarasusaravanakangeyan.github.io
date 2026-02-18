@@ -7,6 +7,10 @@ tags:
   - Markdown syntax
   - Mathjax
   - example
+categories:
+  - AI
+aliases:
+  - /blogs/math/
 image: /images/mathjax.png
 description: ""
 toc: true

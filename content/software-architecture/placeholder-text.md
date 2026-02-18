@@ -8,6 +8,10 @@ tags:
   - Placeholder text
   - Sample
   - example
+categories:
+  - Software Architecture
+aliases:
+  - /blogs/placeholder-text/
 image: /images/post.jpg
 description: ""
 toc: 
