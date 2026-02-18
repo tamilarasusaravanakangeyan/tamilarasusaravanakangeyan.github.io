@@ -1,5 +1,7 @@
 # Tamilarasu Saravanakangeyan - Portfolio & Blog
 
+[![Deploy Hugo site to GitHub Pages](https://github.com/tamilarasusaravanakangeyan/tamilarasusaravanakangeyan.github.io/actions/workflows/hugo.yml/badge.svg)](https://github.com/tamilarasusaravanakangeyan/tamilarasusaravanakangeyan.github.io/actions/workflows/hugo.yml)
+
 A modern, hierarchical portfolio website and technical blog built with Hugo, featuring advanced navigation, responsive design, and accessibility-first approach.
 
 ## Features
