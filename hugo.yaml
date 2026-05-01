@@ -1,6 +1,6 @@
 baseURL: "https://tamilarasusaravanakangeyan.github.io"
 languageCode: "en-us"
-title: "Tamilarasu Saravanakangeyan - Portfolio & Blog"
+title: "Tamilarasu Saravanakangeyan"
 theme: "hugo-theme-relearn"
 
 defaultContentLanguage: "en"
@@ -44,7 +44,7 @@ menus:
 
 params:
   themeVariant:
-    - "relearn-light"
+    - "blue"
     - "relearn-dark"
   author:
     name: "Tamilarasu Saravanakangeyan"
@@ -54,4 +54,4 @@ params:
   search:
     disable: false
   disableLandingPageButton: false
-  landingPageName: "Tamilarasu"
+  landingPageName: "Blogs"
